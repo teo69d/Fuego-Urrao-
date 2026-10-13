@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuego Urrao - Catálogo</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <nav class="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#temas">Temas de interés</a>
+        <a href="#" onclick="abrirCarrito(); return false;">Ver carrito</a>
+        <a href="#" onclick="abrirLogin(); return false;">Iniciar sesión (Admin)</a>
+    </nav>
+
+    <!-- ENCABEZADO CON IMAGEN DE FONDO -->
+    <header id="inicio" class="encabezado">
+        <img
+            src="Fuego Urrao.jpeg"
+            alt="Logo Fuego Urrao"
+            class="logo"
+        >
+
+        <h1>FUEGO URRAO</h1>
+
+        <p>Catálogo oficial</p>
+
+        <p>
+            Explora nuestros productos, conoce sus características
+            y descubre información de interés.
+        </p>
+
+        <a href="#catalogo" class="btn-comprar">Ver catálogo</a>
+    </header>
+
+    <main class="container">
+
+        <section
+            id="panel-admin"
+            class="panel-admin"
+            style="display: none;"
+        >
+            <h2>Panel de administración</h2>
+
+            <button
+                type="button"
+                class="btn-cerrar-sesion"
+                onclick="cerrarSesion()"
+            >
+                Cerrar sesión
+            </button>
+
+            <form
+                id="form-producto"
+                onsubmit="guardarProducto(event)"
+                class="form-admin"
+            >
+                <h3 id="form-titulo">Agregar nuevo producto</h3>
+
+                <input type="hidden" id="prod-id">
+
+                <input
+                    type="text"
+                    id="prod-nombre"
+                    placeholder="Nombre del producto"
+                    required
+                >
+
+                <textarea
+                    id="prod-descripcion"
+                    placeholder="Descripción del producto"
+                    required
+                ></textarea>
+
+                <input
+                    type="text"
+                    id="prod-presentacion"
+                    placeholder="Presentación del producto"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="prod-precio"
+                    placeholder="Precio"
+                    min="1"
+                    required
+                >
+
+                <input
+                    type="url"
+                    id="prod-imagen"
+                    placeholder="Dirección de la imagen"
+                    required
+                >
+
+                <select id="prod-categoria" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="lenceria">Lencería</option>
+                    <option value="Energizantes">Energizantes</option>
+                    <option value="lubricantes anales">Lubricantes anales</option>
+                    <option value="lubricantes">Lubricantes</option>
+                    <option value="lubricantes saborizados">Lubricantes saborizados</option>
+                </select>
+
+                <button type="submit" class="btn-comprar">
+                    Guardar producto
+                </button>
+            </form>
+        </section>
+
+        <section id="catalogo" class="seccion">
+            <h2>Nuestros productos</h2>
+
+            <p>
+                Selecciona un producto para conocer su descripción,
+                presentación y precio.
+            </p>
+
+            <div class="filtros">
+                <button class="btn-filtro" onclick="filtrarProductos('todos')">
+                    Todos
+                </button>
+
+                <button class="btn-filtro" onclick="filtrarProductos('lenceria')">
+                    Lencería
+                </button>
+
+                <button class="btn-filtro" onclick="filtrarProductos('Energizantes')">
+                    Energizantes
+                </button>
+
+                <button class="btn-filtro" onclick="filtrarProductos('lubricantes anales')">
+                    Lubricantes anales
+                </button>
+
+                <button class="btn-filtro" onclick="filtrarProductos('lubricantes')">
+                    Lubricantes
+                </button>
+
+                <button class="btn-filtro" onclick="filtrarProductos('lubricantes saborizados')">
+                    Lubricantes saborizados
+                </button>
+            </div>
+
+            <div
+                class="grid-productos"
+                id="grid-productos"
+            >
+                <p>Cargando productos...</p>
+            </div>
+        </section>
+
+        <section id="temas" class="seccion temas-interes">
+            <h2>Temas de interés</h2>
+
+            <p>
+                Encuentra información general para conocer mejor
+                nuestros productos y utilizarlos responsablemente.
+            </p>
+
+            <div class="grid-temas">
+
+                <article class="tarjeta-tema">
+                    <h3>Bienestar íntimo</h3>
+
+                    <p>
+                        El bienestar íntimo incluye el cuidado personal,
+                        la comodidad y el respeto por las decisiones de
+                        cada persona.
+                    </p>
+
+                    <button
+                        class="btn-comprar"
+                        onclick="mostrarTema('bienestar')"
+                    >
+                        Leer más
+                    </button>
+                </article>
+
+                <article class="tarjeta-tema">
+                    <h3>Uso responsable de lubricantes</h3>
+
+                    <p>
+                        Conoce aspectos básicos para elegir un lubricante
+                        teniendo en cuenta su composición y compatibilidad.
+                    </p>
+
+                    <button
+                        class="btn-comprar"
+                        onclick="mostrarTema('lubricantes')"
+                    >
+                        Leer más
+                    </button>
+                </article>
+
+                <article class="tarjeta-tema">
+                    <h3>Cómo elegir una presentación</h3>
+
+                    <p>
+                        Aprende a comparar las presentaciones y las
+                        características de los productos antes de elegir.
+                    </p>
+
+                    <button
+                        class="btn-comprar"
+                        onclick="mostrarTema('presentaciones')"
+                    >
+                        Leer más
+                    </button>
+                </article>
+
+                <article class="tarjeta-tema">
+                    <h3>Cuidado y almacenamiento</h3>
+
+                    <p>
+                        Revisa las indicaciones del fabricante para
+                        conservar los productos adecuadamente.
+                    </p>
+
+                    <button
+                        class="btn-comprar"
+                        onclick="mostrarTema('cuidado')"
+                    >
+                        Leer más
+                    </button>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+  <!-- Carrito de compras  -->
+
+    <button
+        id="btn-carrito-flotante"
+        class="btn-carrito-flotante"
+        type="button"
+        onclick="abrirCarrito()"
+        aria-label="Abrir carrito"
+    >
+        🛒 <span id="contador-carrito" class="contador-carrito">0</span>
+    </button>
+
+    <div
+        id="panel-carrito-fondo"
+        class="panel-carrito-fondo"
+        onclick="cerrarCarrito()"
+    ></div>
+
+    <aside
+        id="carrito"
+        class="panel-carrito"
+        aria-label="Carrito de compras"
+    >
+        <button
+            type="button"
+            class="cerrar-modal"
+            onclick="cerrarCarrito()"
+            aria-label="Cerrar carrito"
+        >
+            &times;
+        </button>
+
+        <h2>Carrito de compras</h2>
+
+        <ul id="lista-carrito">
+            <li>El carrito está vacío.</li>
+        </ul>
+
+        <p>
+            <strong>
+                Total: $<span id="total-precio">0</span>
+            </strong>
+        </p>
+
+        <button
+            class="btn-enviar-pedido"
+            onclick="enviarPedidoWhatsApp()"
+        >
+            📲 Enviar pedido por WhatsApp
+        </button>
+    </aside>
+
+    <!-- Ventanas emergentes -->
+
+    <div
+        id="modal-login"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titulo-login"
+    >
+        <div class="modal-contenido">
+
+            <button
+                type="button"
+                class="cerrar-modal"
+                onclick="cerrarLogin()"
+                aria-label="Cerrar ventana"
+            >
+                &times;
+            </button>
+
+            <h2 id="titulo-login">Acceso de administradora</h2>
+
+            <form onsubmit="validarLogin(event)">
+                <input
+                    type="text"
+                    id="usuario"
+                    placeholder="Usuario"
+                    autocomplete="username"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Contraseña"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button type="submit" class="btn-comprar">
+                    Ingresar
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <div
+        id="modal-producto"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="detalle-nombre"
+    >
+        <div class="modal-contenido modal-producto-contenido">
+
+            <button
+                type="button"
+                class="cerrar-modal"
+                onclick="cerrarDetalleProducto()"
+                aria-label="Cerrar ventana"
+            >
+                &times;
+            </button>
+
+            <img
+                id="detalle-imagen"
+                src=""
+                alt=""
+                class="detalle-imagen"
+            >
+
+            <h2 id="detalle-nombre"></h2>
+
+            <p id="detalle-descripcion"></p>
+
+            <p>
+                <strong>Presentación:</strong>
+                <span id="detalle-presentacion"></span>
+            </p>
+
+            <p class="precio">
+                <strong>Precio: $<span id="detalle-precio"></span></strong>
+            </p>
+
+            <button
+                id="detalle-btn-carrito"
+                class="btn-comprar"
+                onclick="agregarProductoDesdeDetalle()"
+            >
+                Agregar al carrito
+            </button>
+
+        </div>
+    </div>
+
+    <div
+        id="modal-tema"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tema-titulo"
+    >
+        <div class="modal-contenido">
+
+            <button
+                type="button"
+                class="cerrar-modal"
+                onclick="cerrarTema()"
+                aria-label="Cerrar ventana"
+            >
+                &times;
+            </button>
+
+            <h2 id="tema-titulo"></h2>
+
+            <p id="tema-contenido"></p>
+
+        </div>
+    </div>
+
+    <a
+        href="https://wa.me/573233626933"
+        class="btn-whatsapp-flotante"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp"
+    >
+        💬 Contactar
+    </a>
+
+    <footer>
+        <p>&copy; Fuego Urrao - Todos los derechos reservados</p>
+    </footer>
+
+    <script src="Logica.js"></script>
+
+</body>
+</html>
